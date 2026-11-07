@@ -1,0 +1,410 @@
+{
+  "schema": "antibody.queue.experiment.g3.v1",
+  "scope": "isolated local synthetic queue and inventory only",
+  "invariant": "one reservation/stock decrement per command",
+  "result": "REPRODUCED_SYNTHETIC_ONLY",
+  "checks": {
+    "baselineValid": true,
+    "badSpecific": true,
+    "fixedSpecific": true
+  },
+  "counts": {
+    "badObserved": 3,
+    "fixedDenied": 3
+  },
+  "observations": {
+    "baseline": {
+      "schema": "antibody.queue.synthetic.e1.v1",
+      "case": {
+        "version": 1,
+        "case": "queue-lost-ack",
+        "build": "bad",
+        "fault": "none",
+        "maxAttempts": 2,
+        "commandId": "reserve-demo-042",
+        "network": "off"
+      },
+      "attempts": 1,
+      "deliveries": 1,
+      "committedReservations": 1,
+      "stockAvailable": 9,
+      "events": [
+        {
+          "seq": 1,
+          "kind": "DELIVERY_RECEIVED",
+          "attempt": "delivery-1"
+        },
+        {
+          "seq": 2,
+          "kind": "RESERVATION_DURABLY_COMMITTED",
+          "attempt": "delivery-1"
+        },
+        {
+          "seq": 3,
+          "kind": "ACK_CONFIRMED",
+          "attempt": "delivery-1"
+        }
+      ],
+      "oracleCoherent": true,
+      "faultOrder": true,
+      "status": "NOT_REPRODUCED",
+      "limits": [
+        "single local synthetic queue fixture",
+        "no real queue broker",
+        "no real inventory or customer data"
+      ]
+    },
+    "bad": [
+      {
+        "schema": "antibody.queue.synthetic.e1.v1",
+        "case": {
+          "version": 1,
+          "case": "queue-lost-ack",
+          "build": "bad",
+          "fault": "drop_ack_after_commit",
+          "maxAttempts": 2,
+          "commandId": "reserve-demo-042",
+          "network": "off"
+        },
+        "attempts": 2,
+        "deliveries": 2,
+        "committedReservations": 2,
+        "stockAvailable": 8,
+        "events": [
+          {
+            "seq": 1,
+            "kind": "DELIVERY_RECEIVED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 2,
+            "kind": "RESERVATION_DURABLY_COMMITTED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 3,
+            "kind": "QUEUE_ACK_DROPPED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 4,
+            "kind": "DELIVERY_RECEIVED",
+            "attempt": "delivery-2"
+          },
+          {
+            "seq": 5,
+            "kind": "RESERVATION_DURABLY_COMMITTED",
+            "attempt": "delivery-2"
+          },
+          {
+            "seq": 6,
+            "kind": "ACK_CONFIRMED",
+            "attempt": "delivery-2"
+          }
+        ],
+        "oracleCoherent": true,
+        "faultOrder": true,
+        "status": "VIOLATION_OBSERVED",
+        "limits": [
+          "single local synthetic queue fixture",
+          "no real queue broker",
+          "no real inventory or customer data"
+        ]
+      },
+      {
+        "schema": "antibody.queue.synthetic.e1.v1",
+        "case": {
+          "version": 1,
+          "case": "queue-lost-ack",
+          "build": "bad",
+          "fault": "drop_ack_after_commit",
+          "maxAttempts": 2,
+          "commandId": "reserve-demo-042",
+          "network": "off"
+        },
+        "attempts": 2,
+        "deliveries": 2,
+        "committedReservations": 2,
+        "stockAvailable": 8,
+        "events": [
+          {
+            "seq": 1,
+            "kind": "DELIVERY_RECEIVED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 2,
+            "kind": "RESERVATION_DURABLY_COMMITTED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 3,
+            "kind": "QUEUE_ACK_DROPPED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 4,
+            "kind": "DELIVERY_RECEIVED",
+            "attempt": "delivery-2"
+          },
+          {
+            "seq": 5,
+            "kind": "RESERVATION_DURABLY_COMMITTED",
+            "attempt": "delivery-2"
+          },
+          {
+            "seq": 6,
+            "kind": "ACK_CONFIRMED",
+            "attempt": "delivery-2"
+          }
+        ],
+        "oracleCoherent": true,
+        "faultOrder": true,
+        "status": "VIOLATION_OBSERVED",
+        "limits": [
+          "single local synthetic queue fixture",
+          "no real queue broker",
+          "no real inventory or customer data"
+        ]
+      },
+      {
+        "schema": "antibody.queue.synthetic.e1.v1",
+        "case": {
+          "version": 1,
+          "case": "queue-lost-ack",
+          "build": "bad",
+          "fault": "drop_ack_after_commit",
+          "maxAttempts": 2,
+          "commandId": "reserve-demo-042",
+          "network": "off"
+        },
+        "attempts": 2,
+        "deliveries": 2,
+        "committedReservations": 2,
+        "stockAvailable": 8,
+        "events": [
+          {
+            "seq": 1,
+            "kind": "DELIVERY_RECEIVED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 2,
+            "kind": "RESERVATION_DURABLY_COMMITTED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 3,
+            "kind": "QUEUE_ACK_DROPPED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 4,
+            "kind": "DELIVERY_RECEIVED",
+            "attempt": "delivery-2"
+          },
+          {
+            "seq": 5,
+            "kind": "RESERVATION_DURABLY_COMMITTED",
+            "attempt": "delivery-2"
+          },
+          {
+            "seq": 6,
+            "kind": "ACK_CONFIRMED",
+            "attempt": "delivery-2"
+          }
+        ],
+        "oracleCoherent": true,
+        "faultOrder": true,
+        "status": "VIOLATION_OBSERVED",
+        "limits": [
+          "single local synthetic queue fixture",
+          "no real queue broker",
+          "no real inventory or customer data"
+        ]
+      }
+    ],
+    "fixed": [
+      {
+        "schema": "antibody.queue.synthetic.e1.v1",
+        "case": {
+          "version": 1,
+          "case": "queue-lost-ack",
+          "build": "fixed",
+          "fault": "drop_ack_after_commit",
+          "maxAttempts": 2,
+          "commandId": "reserve-demo-042",
+          "network": "off"
+        },
+        "attempts": 2,
+        "deliveries": 2,
+        "committedReservations": 1,
+        "stockAvailable": 9,
+        "events": [
+          {
+            "seq": 1,
+            "kind": "DELIVERY_RECEIVED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 2,
+            "kind": "RESERVATION_DURABLY_COMMITTED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 3,
+            "kind": "QUEUE_ACK_DROPPED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 4,
+            "kind": "DELIVERY_RECEIVED",
+            "attempt": "delivery-2"
+          },
+          {
+            "seq": 5,
+            "kind": "IDEMPOTENT_DUPLICATE_SKIPPED",
+            "attempt": "delivery-2"
+          },
+          {
+            "seq": 6,
+            "kind": "ACK_CONFIRMED",
+            "attempt": "delivery-2"
+          }
+        ],
+        "oracleCoherent": true,
+        "faultOrder": true,
+        "status": "NOT_REPRODUCED",
+        "limits": [
+          "single local synthetic queue fixture",
+          "no real queue broker",
+          "no real inventory or customer data"
+        ]
+      },
+      {
+        "schema": "antibody.queue.synthetic.e1.v1",
+        "case": {
+          "version": 1,
+          "case": "queue-lost-ack",
+          "build": "fixed",
+          "fault": "drop_ack_after_commit",
+          "maxAttempts": 2,
+          "commandId": "reserve-demo-042",
+          "network": "off"
+        },
+        "attempts": 2,
+        "deliveries": 2,
+        "committedReservations": 1,
+        "stockAvailable": 9,
+        "events": [
+          {
+            "seq": 1,
+            "kind": "DELIVERY_RECEIVED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 2,
+            "kind": "RESERVATION_DURABLY_COMMITTED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 3,
+            "kind": "QUEUE_ACK_DROPPED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 4,
+            "kind": "DELIVERY_RECEIVED",
+            "attempt": "delivery-2"
+          },
+          {
+            "seq": 5,
+            "kind": "IDEMPOTENT_DUPLICATE_SKIPPED",
+            "attempt": "delivery-2"
+          },
+          {
+            "seq": 6,
+            "kind": "ACK_CONFIRMED",
+            "attempt": "delivery-2"
+          }
+        ],
+        "oracleCoherent": true,
+        "faultOrder": true,
+        "status": "NOT_REPRODUCED",
+        "limits": [
+          "single local synthetic queue fixture",
+          "no real queue broker",
+          "no real inventory or customer data"
+        ]
+      },
+      {
+        "schema": "antibody.queue.synthetic.e1.v1",
+        "case": {
+          "version": 1,
+          "case": "queue-lost-ack",
+          "build": "fixed",
+          "fault": "drop_ack_after_commit",
+          "maxAttempts": 2,
+          "commandId": "reserve-demo-042",
+          "network": "off"
+        },
+        "attempts": 2,
+        "deliveries": 2,
+        "committedReservations": 1,
+        "stockAvailable": 9,
+        "events": [
+          {
+            "seq": 1,
+            "kind": "DELIVERY_RECEIVED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 2,
+            "kind": "RESERVATION_DURABLY_COMMITTED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 3,
+            "kind": "QUEUE_ACK_DROPPED",
+            "attempt": "delivery-1"
+          },
+          {
+            "seq": 4,
+            "kind": "DELIVERY_RECEIVED",
+            "attempt": "delivery-2"
+          },
+          {
+            "seq": 5,
+            "kind": "IDEMPOTENT_DUPLICATE_SKIPPED",
+            "attempt": "delivery-2"
+          },
+          {
+            "seq": 6,
+            "kind": "ACK_CONFIRMED",
+            "attempt": "delivery-2"
+          }
+        ],
+        "oracleCoherent": true,
+        "faultOrder": true,
+        "status": "NOT_REPRODUCED",
+        "limits": [
+          "single local synthetic queue fixture",
+          "no real queue broker",
+          "no real inventory or customer data"
+        ]
+      }
+    ]
+  },
+  "regression": {
+    "sha256": "d1720823ba8617ef2fb5ebaf5d7038127b492d4d86be0939e44fbe3353618418",
+    "badExitCode": 1,
+    "fixedExitCode": 0,
+    "badFailsSpecifically": true,
+    "fixedPasses": true
+  },
+  "limits": [
+    "no real queue broker",
+    "one seed, synthetic inventory only",
+    "not proven with worker crashes or concurrent deliveries"
+  ]
+}

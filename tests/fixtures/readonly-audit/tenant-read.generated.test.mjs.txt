@@ -1,0 +1,11 @@
+/** Synthetic fixed-template tenant property regression; not a remote security scanner. */
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {makeTenantCase,runTenantTrial} from '../src/tenant.mjs';
+const build=process.env.ANTIBODY_TENANT_TEST_BUILD;
+if(!['bad','fixed'].includes(build))throw new Error('ANTIBODY_TENANT_TEST_BUILD must be bad or fixed');
+test('tenant B cannot read the seeded tenant A sentinel',()=>{
+ const t=runTenantTrial(makeTenantCase({build,action:'cross_tenant_lookup'}));
+ assert.equal(t.oracleCoherent,true,'read-only state oracle must be coherent');
+ assert.equal(t.crossTenantSentinelExposed,false,'invariant broken: tenant B received synthetic A sentinel');
+});

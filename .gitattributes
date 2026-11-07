@@ -1,0 +1,5 @@
+# Preserve the manifest's exact LF source bytes on Windows and Unix.
+* text=auto eol=lf
+*.png -text
+*.zip -text
+*.pdf -text

@@ -1,0 +1,690 @@
+{
+  "schema": "antibody.e1.experiment.v1",
+  "scope": "single synthetic checkout fixture with fixed seed and disposable SQLite; no public target",
+  "humanInvariant": "at most one charge row per synthetic intent",
+  "promotion": "REPRODUCED_SYNTHETIC_ONLY",
+  "testedRepeatCount": {
+    "bad": 3,
+    "fixed": 3
+  },
+  "evidence": {
+    "baselineValid": true,
+    "badSpecific": true,
+    "fixedControl": true,
+    "regressionValid": true,
+    "observationsTrusted": true
+  },
+  "observations": {
+    "baseline": {
+      "schema": "antibody.e1.observation.v1",
+      "fixture": "checkout-retry-e1-20261103",
+      "build": "bad",
+      "case": "checkout-retry",
+      "intentId": "intent-demo-042",
+      "invariant": {
+        "id": "PAYMENT_INTENT_SINGLE_CAPTURE",
+        "rule": "at most one committed synthetic charge per payment intent",
+        "expected": "n <= 1"
+      },
+      "fault": "none",
+      "faultFired": false,
+      "orderingVerified": null,
+      "attempts": 1,
+      "retries": 0,
+      "independentLedgerCount": 1,
+      "independentCharges": [
+        {
+          "id": 1,
+          "intent_id": "intent-demo-042",
+          "operation_id": "attempt-1",
+          "synthetic_amount_cents": 100
+        }
+      ],
+      "eventJournal": [
+        {
+          "seq": 1,
+          "kind": "ATTEMPT_BEGIN",
+          "operation_id": "attempt-1",
+          "detail": "synthetic checkout request"
+        },
+        {
+          "seq": 2,
+          "kind": "DURABLE_COMMIT",
+          "operation_id": "attempt-1",
+          "detail": "charge persisted"
+        },
+        {
+          "seq": 3,
+          "kind": "ACK_RECEIVED",
+          "operation_id": "attempt-1",
+          "detail": "synthetic confirmation"
+        }
+      ],
+      "status": "NOT_REPRODUCED",
+      "reason": null,
+      "scope": "disposable synthetic SQLite fixture; no network calls or real payment side effects",
+      "limits": [
+        "one frozen seed",
+        "Node.js built-in SQLite experimental on Node 22",
+        "single local process; no external user validation"
+      ],
+      "config": {
+        "version": 1,
+        "case": "checkout-retry",
+        "intentId": "intent-demo-042",
+        "build": "bad",
+        "fault": "none",
+        "maxAttempts": 2,
+        "seed": 2042,
+        "network": "off"
+      },
+      "evidenceSha256": "051c713922e553de8facf018be73077ab0af16a466908a49a95680301bca2d79"
+    },
+    "precommit": {
+      "schema": "antibody.e1.observation.v1",
+      "fixture": "checkout-retry-e1-20261103",
+      "build": "bad",
+      "case": "checkout-retry",
+      "intentId": "intent-demo-042",
+      "invariant": {
+        "id": "PAYMENT_INTENT_SINGLE_CAPTURE",
+        "rule": "at most one committed synthetic charge per payment intent",
+        "expected": "n <= 1"
+      },
+      "fault": "fail_before_commit",
+      "faultFired": true,
+      "orderingVerified": null,
+      "attempts": 2,
+      "retries": 1,
+      "independentLedgerCount": 1,
+      "independentCharges": [
+        {
+          "id": 1,
+          "intent_id": "intent-demo-042",
+          "operation_id": "attempt-2",
+          "synthetic_amount_cents": 100
+        }
+      ],
+      "eventJournal": [
+        {
+          "seq": 1,
+          "kind": "PRE_COMMIT_FAULT",
+          "operation_id": "attempt-1",
+          "detail": "no durable write"
+        },
+        {
+          "seq": 2,
+          "kind": "ATTEMPT_BEGIN",
+          "operation_id": "attempt-2",
+          "detail": "synthetic checkout request"
+        },
+        {
+          "seq": 3,
+          "kind": "DURABLE_COMMIT",
+          "operation_id": "attempt-2",
+          "detail": "charge persisted"
+        },
+        {
+          "seq": 4,
+          "kind": "ACK_RECEIVED",
+          "operation_id": "attempt-2",
+          "detail": "synthetic confirmation"
+        }
+      ],
+      "status": "NOT_REPRODUCED",
+      "reason": null,
+      "scope": "disposable synthetic SQLite fixture; no network calls or real payment side effects",
+      "limits": [
+        "one frozen seed",
+        "Node.js built-in SQLite experimental on Node 22",
+        "single local process; no external user validation"
+      ],
+      "config": {
+        "version": 1,
+        "case": "checkout-retry",
+        "intentId": "intent-demo-042",
+        "build": "bad",
+        "fault": "fail_before_commit",
+        "maxAttempts": 2,
+        "seed": 2042,
+        "network": "off"
+      },
+      "evidenceSha256": "ee9b7c16f20a7735f9d99941be821683596acc9650e356d4f1e464fb71c8611c"
+    },
+    "bad": [
+      {
+        "schema": "antibody.e1.observation.v1",
+        "fixture": "checkout-retry-e1-20261103",
+        "build": "bad",
+        "case": "checkout-retry",
+        "intentId": "intent-demo-042",
+        "invariant": {
+          "id": "PAYMENT_INTENT_SINGLE_CAPTURE",
+          "rule": "at most one committed synthetic charge per payment intent",
+          "expected": "n <= 1"
+        },
+        "fault": "drop_ack_after_commit",
+        "faultFired": true,
+        "orderingVerified": true,
+        "attempts": 2,
+        "retries": 1,
+        "independentLedgerCount": 2,
+        "independentCharges": [
+          {
+            "id": 1,
+            "intent_id": "intent-demo-042",
+            "operation_id": "attempt-1",
+            "synthetic_amount_cents": 100
+          },
+          {
+            "id": 2,
+            "intent_id": "intent-demo-042",
+            "operation_id": "attempt-2",
+            "synthetic_amount_cents": 100
+          }
+        ],
+        "eventJournal": [
+          {
+            "seq": 1,
+            "kind": "ATTEMPT_BEGIN",
+            "operation_id": "attempt-1",
+            "detail": "synthetic checkout request"
+          },
+          {
+            "seq": 2,
+            "kind": "DURABLE_COMMIT",
+            "operation_id": "attempt-1",
+            "detail": "charge persisted"
+          },
+          {
+            "seq": 3,
+            "kind": "ACK_DROPPED",
+            "operation_id": "attempt-1",
+            "detail": "response intentionally discarded after commit"
+          },
+          {
+            "seq": 4,
+            "kind": "ATTEMPT_BEGIN",
+            "operation_id": "attempt-2",
+            "detail": "synthetic checkout request"
+          },
+          {
+            "seq": 5,
+            "kind": "DURABLE_COMMIT",
+            "operation_id": "attempt-2",
+            "detail": "charge persisted"
+          },
+          {
+            "seq": 6,
+            "kind": "ACK_RECEIVED",
+            "operation_id": "attempt-2",
+            "detail": "synthetic confirmation"
+          }
+        ],
+        "status": "VIOLATION_OBSERVED",
+        "reason": null,
+        "scope": "disposable synthetic SQLite fixture; no network calls or real payment side effects",
+        "limits": [
+          "one frozen seed",
+          "Node.js built-in SQLite experimental on Node 22",
+          "single local process; no external user validation"
+        ],
+        "config": {
+          "version": 1,
+          "case": "checkout-retry",
+          "intentId": "intent-demo-042",
+          "build": "bad",
+          "fault": "drop_ack_after_commit",
+          "maxAttempts": 2,
+          "seed": 2042,
+          "network": "off"
+        },
+        "evidenceSha256": "d5ff43c6c12563459159478634a246dbf27b5f6cf10664080d2831b74b3b1899"
+      },
+      {
+        "schema": "antibody.e1.observation.v1",
+        "fixture": "checkout-retry-e1-20261103",
+        "build": "bad",
+        "case": "checkout-retry",
+        "intentId": "intent-demo-042",
+        "invariant": {
+          "id": "PAYMENT_INTENT_SINGLE_CAPTURE",
+          "rule": "at most one committed synthetic charge per payment intent",
+          "expected": "n <= 1"
+        },
+        "fault": "drop_ack_after_commit",
+        "faultFired": true,
+        "orderingVerified": true,
+        "attempts": 2,
+        "retries": 1,
+        "independentLedgerCount": 2,
+        "independentCharges": [
+          {
+            "id": 1,
+            "intent_id": "intent-demo-042",
+            "operation_id": "attempt-1",
+            "synthetic_amount_cents": 100
+          },
+          {
+            "id": 2,
+            "intent_id": "intent-demo-042",
+            "operation_id": "attempt-2",
+            "synthetic_amount_cents": 100
+          }
+        ],
+        "eventJournal": [
+          {
+            "seq": 1,
+            "kind": "ATTEMPT_BEGIN",
+            "operation_id": "attempt-1",
+            "detail": "synthetic checkout request"
+          },
+          {
+            "seq": 2,
+            "kind": "DURABLE_COMMIT",
+            "operation_id": "attempt-1",
+            "detail": "charge persisted"
+          },
+          {
+            "seq": 3,
+            "kind": "ACK_DROPPED",
+            "operation_id": "attempt-1",
+            "detail": "response intentionally discarded after commit"
+          },
+          {
+            "seq": 4,
+            "kind": "ATTEMPT_BEGIN",
+            "operation_id": "attempt-2",
+            "detail": "synthetic checkout request"
+          },
+          {
+            "seq": 5,
+            "kind": "DURABLE_COMMIT",
+            "operation_id": "attempt-2",
+            "detail": "charge persisted"
+          },
+          {
+            "seq": 6,
+            "kind": "ACK_RECEIVED",
+            "operation_id": "attempt-2",
+            "detail": "synthetic confirmation"
+          }
+        ],
+        "status": "VIOLATION_OBSERVED",
+        "reason": null,
+        "scope": "disposable synthetic SQLite fixture; no network calls or real payment side effects",
+        "limits": [
+          "one frozen seed",
+          "Node.js built-in SQLite experimental on Node 22",
+          "single local process; no external user validation"
+        ],
+        "config": {
+          "version": 1,
+          "case": "checkout-retry",
+          "intentId": "intent-demo-042",
+          "build": "bad",
+          "fault": "drop_ack_after_commit",
+          "maxAttempts": 2,
+          "seed": 2042,
+          "network": "off"
+        },
+        "evidenceSha256": "d5ff43c6c12563459159478634a246dbf27b5f6cf10664080d2831b74b3b1899"
+      },
+      {
+        "schema": "antibody.e1.observation.v1",
+        "fixture": "checkout-retry-e1-20261103",
+        "build": "bad",
+        "case": "checkout-retry",
+        "intentId": "intent-demo-042",
+        "invariant": {
+          "id": "PAYMENT_INTENT_SINGLE_CAPTURE",
+          "rule": "at most one committed synthetic charge per payment intent",
+          "expected": "n <= 1"
+        },
+        "fault": "drop_ack_after_commit",
+        "faultFired": true,
+        "orderingVerified": true,
+        "attempts": 2,
+        "retries": 1,
+        "independentLedgerCount": 2,
+        "independentCharges": [
+          {
+            "id": 1,
+            "intent_id": "intent-demo-042",
+            "operation_id": "attempt-1",
+            "synthetic_amount_cents": 100
+          },
+          {
+            "id": 2,
+            "intent_id": "intent-demo-042",
+            "operation_id": "attempt-2",
+            "synthetic_amount_cents": 100
+          }
+        ],
+        "eventJournal": [
+          {
+            "seq": 1,
+            "kind": "ATTEMPT_BEGIN",
+            "operation_id": "attempt-1",
+            "detail": "synthetic checkout request"
+          },
+          {
+            "seq": 2,
+            "kind": "DURABLE_COMMIT",
+            "operation_id": "attempt-1",
+            "detail": "charge persisted"
+          },
+          {
+            "seq": 3,
+            "kind": "ACK_DROPPED",
+            "operation_id": "attempt-1",
+            "detail": "response intentionally discarded after commit"
+          },
+          {
+            "seq": 4,
+            "kind": "ATTEMPT_BEGIN",
+            "operation_id": "attempt-2",
+            "detail": "synthetic checkout request"
+          },
+          {
+            "seq": 5,
+            "kind": "DURABLE_COMMIT",
+            "operation_id": "attempt-2",
+            "detail": "charge persisted"
+          },
+          {
+            "seq": 6,
+            "kind": "ACK_RECEIVED",
+            "operation_id": "attempt-2",
+            "detail": "synthetic confirmation"
+          }
+        ],
+        "status": "VIOLATION_OBSERVED",
+        "reason": null,
+        "scope": "disposable synthetic SQLite fixture; no network calls or real payment side effects",
+        "limits": [
+          "one frozen seed",
+          "Node.js built-in SQLite experimental on Node 22",
+          "single local process; no external user validation"
+        ],
+        "config": {
+          "version": 1,
+          "case": "checkout-retry",
+          "intentId": "intent-demo-042",
+          "build": "bad",
+          "fault": "drop_ack_after_commit",
+          "maxAttempts": 2,
+          "seed": 2042,
+          "network": "off"
+        },
+        "evidenceSha256": "d5ff43c6c12563459159478634a246dbf27b5f6cf10664080d2831b74b3b1899"
+      }
+    ],
+    "fixed": [
+      {
+        "schema": "antibody.e1.observation.v1",
+        "fixture": "checkout-retry-e1-20261103",
+        "build": "fixed",
+        "case": "checkout-retry",
+        "intentId": "intent-demo-042",
+        "invariant": {
+          "id": "PAYMENT_INTENT_SINGLE_CAPTURE",
+          "rule": "at most one committed synthetic charge per payment intent",
+          "expected": "n <= 1"
+        },
+        "fault": "drop_ack_after_commit",
+        "faultFired": true,
+        "orderingVerified": true,
+        "attempts": 2,
+        "retries": 1,
+        "independentLedgerCount": 1,
+        "independentCharges": [
+          {
+            "id": 1,
+            "intent_id": "intent-demo-042",
+            "operation_id": "attempt-1",
+            "synthetic_amount_cents": 100
+          }
+        ],
+        "eventJournal": [
+          {
+            "seq": 1,
+            "kind": "ATTEMPT_BEGIN",
+            "operation_id": "attempt-1",
+            "detail": "synthetic checkout request"
+          },
+          {
+            "seq": 2,
+            "kind": "DURABLE_COMMIT",
+            "operation_id": "attempt-1",
+            "detail": "charge persisted"
+          },
+          {
+            "seq": 3,
+            "kind": "ACK_DROPPED",
+            "operation_id": "attempt-1",
+            "detail": "response intentionally discarded after commit"
+          },
+          {
+            "seq": 4,
+            "kind": "ATTEMPT_BEGIN",
+            "operation_id": "attempt-2",
+            "detail": "synthetic checkout request"
+          },
+          {
+            "seq": 5,
+            "kind": "DURABLE_DEDUPLICATION",
+            "operation_id": "attempt-2",
+            "detail": "intent already committed"
+          },
+          {
+            "seq": 6,
+            "kind": "ACK_RECEIVED",
+            "operation_id": "attempt-2",
+            "detail": "idempotent duplicate acknowledged"
+          }
+        ],
+        "status": "NOT_REPRODUCED",
+        "reason": null,
+        "scope": "disposable synthetic SQLite fixture; no network calls or real payment side effects",
+        "limits": [
+          "one frozen seed",
+          "Node.js built-in SQLite experimental on Node 22",
+          "single local process; no external user validation"
+        ],
+        "config": {
+          "version": 1,
+          "case": "checkout-retry",
+          "intentId": "intent-demo-042",
+          "build": "fixed",
+          "fault": "drop_ack_after_commit",
+          "maxAttempts": 2,
+          "seed": 2042,
+          "network": "off"
+        },
+        "evidenceSha256": "7985cc3f9c5932ffdc70a11f55fdd7a5c0573e78cfaf4e6c262eb43d4db15f65"
+      },
+      {
+        "schema": "antibody.e1.observation.v1",
+        "fixture": "checkout-retry-e1-20261103",
+        "build": "fixed",
+        "case": "checkout-retry",
+        "intentId": "intent-demo-042",
+        "invariant": {
+          "id": "PAYMENT_INTENT_SINGLE_CAPTURE",
+          "rule": "at most one committed synthetic charge per payment intent",
+          "expected": "n <= 1"
+        },
+        "fault": "drop_ack_after_commit",
+        "faultFired": true,
+        "orderingVerified": true,
+        "attempts": 2,
+        "retries": 1,
+        "independentLedgerCount": 1,
+        "independentCharges": [
+          {
+            "id": 1,
+            "intent_id": "intent-demo-042",
+            "operation_id": "attempt-1",
+            "synthetic_amount_cents": 100
+          }
+        ],
+        "eventJournal": [
+          {
+            "seq": 1,
+            "kind": "ATTEMPT_BEGIN",
+            "operation_id": "attempt-1",
+            "detail": "synthetic checkout request"
+          },
+          {
+            "seq": 2,
+            "kind": "DURABLE_COMMIT",
+            "operation_id": "attempt-1",
+            "detail": "charge persisted"
+          },
+          {
+            "seq": 3,
+            "kind": "ACK_DROPPED",
+            "operation_id": "attempt-1",
+            "detail": "response intentionally discarded after commit"
+          },
+          {
+            "seq": 4,
+            "kind": "ATTEMPT_BEGIN",
+            "operation_id": "attempt-2",
+            "detail": "synthetic checkout request"
+          },
+          {
+            "seq": 5,
+            "kind": "DURABLE_DEDUPLICATION",
+            "operation_id": "attempt-2",
+            "detail": "intent already committed"
+          },
+          {
+            "seq": 6,
+            "kind": "ACK_RECEIVED",
+            "operation_id": "attempt-2",
+            "detail": "idempotent duplicate acknowledged"
+          }
+        ],
+        "status": "NOT_REPRODUCED",
+        "reason": null,
+        "scope": "disposable synthetic SQLite fixture; no network calls or real payment side effects",
+        "limits": [
+          "one frozen seed",
+          "Node.js built-in SQLite experimental on Node 22",
+          "single local process; no external user validation"
+        ],
+        "config": {
+          "version": 1,
+          "case": "checkout-retry",
+          "intentId": "intent-demo-042",
+          "build": "fixed",
+          "fault": "drop_ack_after_commit",
+          "maxAttempts": 2,
+          "seed": 2042,
+          "network": "off"
+        },
+        "evidenceSha256": "7985cc3f9c5932ffdc70a11f55fdd7a5c0573e78cfaf4e6c262eb43d4db15f65"
+      },
+      {
+        "schema": "antibody.e1.observation.v1",
+        "fixture": "checkout-retry-e1-20261103",
+        "build": "fixed",
+        "case": "checkout-retry",
+        "intentId": "intent-demo-042",
+        "invariant": {
+          "id": "PAYMENT_INTENT_SINGLE_CAPTURE",
+          "rule": "at most one committed synthetic charge per payment intent",
+          "expected": "n <= 1"
+        },
+        "fault": "drop_ack_after_commit",
+        "faultFired": true,
+        "orderingVerified": true,
+        "attempts": 2,
+        "retries": 1,
+        "independentLedgerCount": 1,
+        "independentCharges": [
+          {
+            "id": 1,
+            "intent_id": "intent-demo-042",
+            "operation_id": "attempt-1",
+            "synthetic_amount_cents": 100
+          }
+        ],
+        "eventJournal": [
+          {
+            "seq": 1,
+            "kind": "ATTEMPT_BEGIN",
+            "operation_id": "attempt-1",
+            "detail": "synthetic checkout request"
+          },
+          {
+            "seq": 2,
+            "kind": "DURABLE_COMMIT",
+            "operation_id": "attempt-1",
+            "detail": "charge persisted"
+          },
+          {
+            "seq": 3,
+            "kind": "ACK_DROPPED",
+            "operation_id": "attempt-1",
+            "detail": "response intentionally discarded after commit"
+          },
+          {
+            "seq": 4,
+            "kind": "ATTEMPT_BEGIN",
+            "operation_id": "attempt-2",
+            "detail": "synthetic checkout request"
+          },
+          {
+            "seq": 5,
+            "kind": "DURABLE_DEDUPLICATION",
+            "operation_id": "attempt-2",
+            "detail": "intent already committed"
+          },
+          {
+            "seq": 6,
+            "kind": "ACK_RECEIVED",
+            "operation_id": "attempt-2",
+            "detail": "idempotent duplicate acknowledged"
+          }
+        ],
+        "status": "NOT_REPRODUCED",
+        "reason": null,
+        "scope": "disposable synthetic SQLite fixture; no network calls or real payment side effects",
+        "limits": [
+          "one frozen seed",
+          "Node.js built-in SQLite experimental on Node 22",
+          "single local process; no external user validation"
+        ],
+        "config": {
+          "version": 1,
+          "case": "checkout-retry",
+          "intentId": "intent-demo-042",
+          "build": "fixed",
+          "fault": "drop_ack_after_commit",
+          "maxAttempts": 2,
+          "seed": 2042,
+          "network": "off"
+        },
+        "evidenceSha256": "7985cc3f9c5932ffdc70a11f55fdd7a5c0573e78cfaf4e6c262eb43d4db15f65"
+      }
+    ]
+  },
+  "exportedRegression": {
+    "sha256": "aecfd7eef9dca334d5e05f42fd7ef5d73428f95b3e12f44c15c27f2d1f0ba5d7",
+    "badExitCode": 1,
+    "fixedExitCode": 0,
+    "badFailsSpecifically": true,
+    "fixedPasses": true
+  },
+  "limits": [
+    "No real customer app",
+    "One fixture and one frozen seed",
+    "Runtime matrix unknown",
+    "No Vitest/TS integration yet",
+    "Independent observer is a separate SQLite read-only connection, not a separate trust domain",
+    "No external adoption or CI"
+  ]
+}

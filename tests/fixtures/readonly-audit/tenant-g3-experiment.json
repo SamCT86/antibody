@@ -1,0 +1,221 @@
+{
+  "schema": "antibody.tenant.experiment.g3.v1",
+  "scope": "local synthetic SQLite fixture only",
+  "invariant": "tenant B does not receive seeded tenant A sentinel",
+  "result": "REPRODUCED_SYNTHETIC_ONLY",
+  "counts": {
+    "badObserved": 3,
+    "fixedDenied": 3
+  },
+  "observations": {
+    "bad": [
+      {
+        "schema": "antibody.tenant.synthetic.g3.v1",
+        "case": {
+          "version": 1,
+          "case": "tenant-read-local",
+          "build": "bad",
+          "action": "cross_tenant_lookup",
+          "network": "off"
+        },
+        "observedResponse": {
+          "id": 1001,
+          "body": "PRIVATE-SYNTHETIC-A-042"
+        },
+        "independentOwner": "tenant-demo-a",
+        "seededCorrectly": true,
+        "crossTenantSentinelExposed": true,
+        "oracleCoherent": true,
+        "status": "VIOLATION_OBSERVED",
+        "limits": [
+          "local SQLite only",
+          "fictitious tenants and orders",
+          "not an authentication or remote BOLA scanner",
+          "not a security guarantee for a real application"
+        ]
+      },
+      {
+        "schema": "antibody.tenant.synthetic.g3.v1",
+        "case": {
+          "version": 1,
+          "case": "tenant-read-local",
+          "build": "bad",
+          "action": "cross_tenant_lookup",
+          "network": "off"
+        },
+        "observedResponse": {
+          "id": 1001,
+          "body": "PRIVATE-SYNTHETIC-A-042"
+        },
+        "independentOwner": "tenant-demo-a",
+        "seededCorrectly": true,
+        "crossTenantSentinelExposed": true,
+        "oracleCoherent": true,
+        "status": "VIOLATION_OBSERVED",
+        "limits": [
+          "local SQLite only",
+          "fictitious tenants and orders",
+          "not an authentication or remote BOLA scanner",
+          "not a security guarantee for a real application"
+        ]
+      },
+      {
+        "schema": "antibody.tenant.synthetic.g3.v1",
+        "case": {
+          "version": 1,
+          "case": "tenant-read-local",
+          "build": "bad",
+          "action": "cross_tenant_lookup",
+          "network": "off"
+        },
+        "observedResponse": {
+          "id": 1001,
+          "body": "PRIVATE-SYNTHETIC-A-042"
+        },
+        "independentOwner": "tenant-demo-a",
+        "seededCorrectly": true,
+        "crossTenantSentinelExposed": true,
+        "oracleCoherent": true,
+        "status": "VIOLATION_OBSERVED",
+        "limits": [
+          "local SQLite only",
+          "fictitious tenants and orders",
+          "not an authentication or remote BOLA scanner",
+          "not a security guarantee for a real application"
+        ]
+      }
+    ],
+    "fixed": [
+      {
+        "schema": "antibody.tenant.synthetic.g3.v1",
+        "case": {
+          "version": 1,
+          "case": "tenant-read-local",
+          "build": "fixed",
+          "action": "cross_tenant_lookup",
+          "network": "off"
+        },
+        "observedResponse": null,
+        "independentOwner": "tenant-demo-a",
+        "seededCorrectly": true,
+        "crossTenantSentinelExposed": false,
+        "oracleCoherent": true,
+        "status": "NOT_REPRODUCED",
+        "limits": [
+          "local SQLite only",
+          "fictitious tenants and orders",
+          "not an authentication or remote BOLA scanner",
+          "not a security guarantee for a real application"
+        ]
+      },
+      {
+        "schema": "antibody.tenant.synthetic.g3.v1",
+        "case": {
+          "version": 1,
+          "case": "tenant-read-local",
+          "build": "fixed",
+          "action": "cross_tenant_lookup",
+          "network": "off"
+        },
+        "observedResponse": null,
+        "independentOwner": "tenant-demo-a",
+        "seededCorrectly": true,
+        "crossTenantSentinelExposed": false,
+        "oracleCoherent": true,
+        "status": "NOT_REPRODUCED",
+        "limits": [
+          "local SQLite only",
+          "fictitious tenants and orders",
+          "not an authentication or remote BOLA scanner",
+          "not a security guarantee for a real application"
+        ]
+      },
+      {
+        "schema": "antibody.tenant.synthetic.g3.v1",
+        "case": {
+          "version": 1,
+          "case": "tenant-read-local",
+          "build": "fixed",
+          "action": "cross_tenant_lookup",
+          "network": "off"
+        },
+        "observedResponse": null,
+        "independentOwner": "tenant-demo-a",
+        "seededCorrectly": true,
+        "crossTenantSentinelExposed": false,
+        "oracleCoherent": true,
+        "status": "NOT_REPRODUCED",
+        "limits": [
+          "local SQLite only",
+          "fictitious tenants and orders",
+          "not an authentication or remote BOLA scanner",
+          "not a security guarantee for a real application"
+        ]
+      }
+    ],
+    "own": {
+      "schema": "antibody.tenant.synthetic.g3.v1",
+      "case": {
+        "version": 1,
+        "case": "tenant-read-local",
+        "build": "fixed",
+        "action": "own_tenant_lookup",
+        "network": "off"
+      },
+      "observedResponse": {
+        "id": 2002,
+        "body": "PUBLIC-SYNTHETIC-B-042"
+      },
+      "independentOwner": "tenant-demo-b",
+      "seededCorrectly": true,
+      "crossTenantSentinelExposed": false,
+      "oracleCoherent": true,
+      "status": "NOT_REPRODUCED",
+      "limits": [
+        "local SQLite only",
+        "fictitious tenants and orders",
+        "not an authentication or remote BOLA scanner",
+        "not a security guarantee for a real application"
+      ]
+    },
+    "absent": {
+      "schema": "antibody.tenant.synthetic.g3.v1",
+      "case": {
+        "version": 1,
+        "case": "tenant-read-local",
+        "build": "fixed",
+        "action": "missing_object",
+        "network": "off"
+      },
+      "observedResponse": null,
+      "independentOwner": null,
+      "seededCorrectly": true,
+      "crossTenantSentinelExposed": false,
+      "oracleCoherent": true,
+      "status": "NOT_REPRODUCED",
+      "limits": [
+        "local SQLite only",
+        "fictitious tenants and orders",
+        "not an authentication or remote BOLA scanner",
+        "not a security guarantee for a real application"
+      ]
+    }
+  },
+  "controls": {
+    "ownTenantAllowed": true,
+    "missingObjectDenied": true
+  },
+  "regression": {
+    "sha256": "866d0e5691f36c8f824711484141248723ff5f25ae87cca62679a2cde714a362",
+    "badExitCode": 1,
+    "fixedExitCode": 0,
+    "badFailsSpecifically": true,
+    "fixedPasses": true
+  },
+  "limits": [
+    "one synthetic deterministic case and seed",
+    "not a BOLA scanner",
+    "no real access policy or authentication verified",
+    "no external developer validation"
+  ]
+}

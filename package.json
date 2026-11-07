@@ -1,0 +1,37 @@
+{
+  "name": "antibody-lab",
+  "version": "0.1.0-experimental.2",
+  "private": true,
+  "files": [
+    "src/",
+    "scripts/",
+    "docs/",
+    "tests/",
+    "README.md",
+    "CHANGELOG.md",
+    "SHA256SUMS.txt",
+    "tsconfig.json",
+    ".gitignore",
+    "LICENSE",
+    "SECURITY.md",
+    "CONTRIBUTING.md",
+    "SOURCE_PROVENANCE.md",
+    ".gitattributes"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=24.18.0 <25"
+  },
+  "scripts": {
+    "test": "node --test tests/recorded-audit.test.mjs tests/export-integrity.test.mjs tests/package-integrity.test.mjs",
+    "audit": "node src/audit-recorded-evidence.mjs",
+    "verify-source": "node scripts/package-integrity.mjs verify",
+    "research:test": "node --test tests/*.test.mjs",
+    "research:audit": "node src/cli.mjs audit",
+    "research:checkout": "node src/cli.mjs prove",
+    "research:queue": "node src/cli.mjs queue-proof",
+    "research:tenant": "node src/cli.mjs tenant-proof"
+  },
+  "description": "Experimental synthetic failure fixtures and read-only frozen evidence checks",
+  "license": "MIT"
+}

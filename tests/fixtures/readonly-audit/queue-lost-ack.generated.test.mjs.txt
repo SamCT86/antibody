@@ -1,0 +1,12 @@
+/** Synthetic queue-only generated regression; not a real broker test. */
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {makeQueueCase,runQueueTrial} from '../src/queue.mjs';
+const build=process.env.ANTIBODY_QUEUE_TEST_BUILD;
+if(!['bad','fixed'].includes(build))throw new Error('ANTIBODY_QUEUE_TEST_BUILD must be bad or fixed');
+test('a duplicate synthetic queue delivery cannot double-apply reservation',()=>{
+ const t=runQueueTrial(makeQueueCase({build}));
+ assert.equal(t.oracleCoherent,true,'queue observer must agree with durable side effects');
+ assert.equal(t.committedReservations,1,'business invariant broken: duplicated durable inventory reservation');
+ assert.equal(t.stockAvailable,9,'one reservation must decrement stock exactly once');
+});

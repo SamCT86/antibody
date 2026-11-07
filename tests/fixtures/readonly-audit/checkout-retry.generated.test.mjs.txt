@@ -1,0 +1,12 @@
+/** E1 FIXTURE TEST — Generated from static template. Synthetic only. */
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { runTrial, makeCase } from '../src/engine.mjs';
+const build=process.env.ANTIBODY_TEST_BUILD;
+if(!['bad','fixed'].includes(build)) throw new Error('ANTIBODY_TEST_BUILD must be bad or fixed');
+test('one synthetic payment intent creates at most one durable charge under post-commit ACK loss',()=>{
+  const observation=runTrial(makeCase({build,fault:'drop_ack_after_commit',maxAttempts:2}));
+  assert.equal(observation.faultFired,true,'post-commit fault should be triggered');
+  assert.equal(observation.orderingVerified,true,'commit must precede acknowledgement loss and retry');
+  assert.equal(observation.independentLedgerCount,1,'invariant broken: same intent generated duplicate durable captures');
+});
